@@ -1,13 +1,11 @@
 /* eslint-disable */
 
 
-import { Dealer } from './dealer';
-import { Player } from './player';
-import { Card } from './card';
 import { Constraint } from './constraint';
-
-import { Suite }  from './suite';
+import { Suite } from './suite';
 import { Color } from './color';
+import { Card } from './card';
+
 
 
 export class Deck {
@@ -52,7 +50,7 @@ export class Deck {
         this.d[this.d.length]=(c);
     };
     PeekCard() {
-        const cTemp = this.d[0];
+        const cTemp = Object.assign(this.d[0]);
         return cTemp;
     };
 };
