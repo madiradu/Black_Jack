@@ -1,0 +1,15 @@
+{"compilerOptions": {
+  "incremental": true,
+  "target": "esnext",
+  "module": "commonjs",
+  "allowJs": true,
+  "checkJs": false,
+  "outDir": "./dist",
+  "sourceMap": true,
+  "strict": true,
+  "alwaysStrict": true,
+  "moduleResolution": "node",
+  "esModuleInterop": true
+}, "include": [ "**/*" ] 
+
+}
