@@ -1,9 +1,15 @@
-import { Dealer } from './dealer';
-import { Card } from './card';
 import { Constraint } from './constraint';
+import { Suite } from './suite';
+import { Color } from './color';
+import { Card } from './card';
 import { Deck } from './deck';
+import { Dealer } from './dealer';
 
 export class Player {
+    dl;
+    isFirstPlayer;
+
+    hand = new Array(0);
     constructor(h) {
         this.isFirstPlayer = false;
         let c = null;
@@ -11,10 +17,7 @@ export class Player {
             this.hand[this.hand.length] = c;
         }
     }
-    dl;
-    isFirstPlayer;
 
-    hand = new Array(0);
 
     getHand() {
         return this.hand;

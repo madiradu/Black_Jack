@@ -1,12 +1,9 @@
 /* eslint no-use-before-define: 0 */  // --> OFF
 
-import { Dealer } from './dealer';
-import { Player } from './player';
 import { Constraint } from './constraint';
-import { Deck } from './deck';
-
 import { Suite } from './suite';
 import { Color } from './color';
+
 
 export class Card {
     no;
