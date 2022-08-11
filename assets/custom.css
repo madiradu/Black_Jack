@@ -1,0 +1,35 @@
+#navlist {
+    position: relative;
+}
+
+    #navlist li {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        position: absolute;
+        top: 0;
+    }
+
+    #navlist li, #navlist a {
+        height: 94px;
+        display: block;
+    }
+
+#HEART2 {
+
+    height: 94px;
+    width: 71px;
+    background: url('iwG3hK.png') 71 0 no-repeat top left!;
+}
+
+#HEART3 {
+    height: 94px;
+    width: 71px;
+    background: url('iwG3hK.png') 142 0 no-repeat;
+}
+
+#HEART4 {
+    left: 94px;
+    width: 71px;
+    background: url('iwG3hK.png') 213 0 no-repeat;
+}
