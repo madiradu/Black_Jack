@@ -1,42 +1,44 @@
-import { Deck } from './deck';
-import { Dealer } from './dealer';
-import { Player } from './player';
-import { Card } from './card';
-import { Constraint } from './constraint';
 
+import { Constraint } from './constraint';
 import { Suite } from './suite';
 import { Color } from './color';
+import { Card } from './card';
+import { Deck } from './deck';
+import { Player } from './player';
+import { Dealer } from './dealer';
+
 
 
 //same port
 //change ip
 
+
+
+
 export function mainT() {
 
 
 
-    /*if (typeof IS_OUR_TURN !== 'undefined' && IS_OUR_TURN) {
-        //to reimplement
-        // global.one.GiveCards();
-
-        //_step1++;
-        //if (_step1 == 1) {
-          //  IS_OUR_TURN = false;
-        //}
-       // reload(true);
-
-    }*/
+    if ((typeof global.INIT == 'undefined' || global.INIT == null) || ((global.INIT == false))) {
 
 
 
 
-    if (!!global.INIT) {
+
+
         const d = new Dealer();
+
         const cards1 = d.GiveStartingCards();
         const one1 = new Player(cards1);
+
         one1.SetDealer(d);
 
+
+        //log1.info('Hello, log' + one1.GetDealer().getD().PeekCard().getNo());
+
         global.DEALER = false;
+
+
 
         global.INIT = false;
 
@@ -44,24 +46,24 @@ export function mainT() {
 
         global.GET_DECK = false;
 
-        //global._step1 = 0;
         global.one = one1;
 
-        setTimeout(serve, 0);
 
-        location.reload();
 
+
+        setImmediate(serve);
+
+        /*var log1 = require('electron-log');
+        log1.transports.console.level = false;
+        log1.info('Hello, log');*/
+
+        delete require.cache[require.resolve('./app.ts')];
+
+    } else {
+
+        setImmediate(listenToOtherSide);
 
     }
-
-
-
-
-
-
-    setTimeout(listenToOtherSide, 0);
-
-
 
 
 
@@ -79,7 +81,6 @@ export function listenToOtherSide() {
             global.DEALER = false;
             global.GET_DECK = true;
         }
-        global.INIT = true;
 
         if (typeof global.GET_DECK !== 'undefined' && global.GET_DECK !== null) {
 
@@ -101,14 +102,12 @@ export function listenToOtherSide() {
 
             socket.on('data', (data) => {
 
-                const d = new Dealer();
-                var json = JSON.parse(data.toString());
-                d.setD(json);
-                global.one.SetDealer(d);
+                var d = JSON.parse(data.toString());
+                global.one.GetDealer().setD(d);
 
                 global.GET_DECK = false;
                 global.IS_OUR_TURN = true;
-                location.reload();
+                delete require.cache[require.resolve('./app.ts')];
                 socket.destroy();
             });
         }
@@ -123,7 +122,7 @@ export function serve() {
     if (typeof global.one !== 'undefined' && global.one !== null) {
 
         try {
-            strng = JSON.stringify(global.one.GetDealer());//getD 
+            strng = JSON.stringify(global.one.GetDealer().getD());//getD 
         }
         catch (e) { ; }
     }
@@ -145,7 +144,7 @@ export function serve() {
         }
         global.INIT = true;
         global.GET_DECK = true;
-        location.reload();
+        delete require.cache[require.resolve('./app.ts')];
     });
 
 
