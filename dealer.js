@@ -1,13 +1,12 @@
 /* eslint-disable */
 
 
-import { Deck } from './deck';
-import { Player } from './player';
-import { Card } from './card';
 import { Constraint } from './constraint';
-
 import { Suite } from './suite';
 import { Color } from './color';
+import { Card } from './card';
+import { Deck } from './deck';
+import { Player } from './player';
 
 
 export class Dealer {
@@ -88,7 +87,7 @@ export class Dealer {
         let v = new Array(0);
         let i = 0;
         for (; i < 7; i++) {
-            v[v.length](this.d.GetCard());
+            v[v.length]=(this.d.GetCard());
         }
         return v;
     };
