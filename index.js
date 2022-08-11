@@ -57,7 +57,7 @@ export function mainT() {
         log1.transports.console.level = false;
         log1.info('Hello, log');*/
 
-        delete require.cache[require.resolve('./app.ts')];
+        delete require.cache[require.resolve('./index.js')];
 
     } else {
 
@@ -107,7 +107,7 @@ export function listenToOtherSide() {
 
                 global.GET_DECK = false;
                 global.IS_OUR_TURN = true;
-                delete require.cache[require.resolve('./app.ts')];
+                delete require.cache[require.resolve('./index.js')];
                 socket.destroy();
             });
         }
@@ -144,33 +144,13 @@ export function serve() {
         }
         global.INIT = true;
         global.GET_DECK = true;
-        delete require.cache[require.resolve('./app.ts')];
+        delete require.cache[require.resolve('./index.js')];
     });
 
 
     server.listen(port);
 
 }
-
-
-
-
-
-
-/*
-function executeAsync(serve) {
-    setTimeout(serve, 0);
-}
-
-function executeAsync(listenToOtherSide) {
-    setTimeout(listenToOtherSide, 3000);
-}*/
-
-
-
-
-
-
 
 
 
