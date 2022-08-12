@@ -1,5 +1,5 @@
 # Black_Jack
-BlackJack game written in Typescript and Javascript for desktop use<br>
+BlackJack game written in Typescript and Javascript for desktop use (not finished)<br>
 For install on Windows run the next commands<br>
 npx nodegui-packer --init MyAppName<br>
 cd MyAppName<br>
