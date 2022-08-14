@@ -1,4 +1,4 @@
-import { QMessageBox, ButtonRole, QMainWindow, QWidget, QLabel, FlexLayout, QPushButton, QIcon, QInputDialog, QGridLayout, WidgetEventTypes, QAction, QLayout } from '@nodegui/nodegui';
+import { QMessageBox, ButtonRole, QMainWindow, QWidget, QLabel, FlexLayout, QPushButton, QIcon, QInputDialog, QGridLayout, WidgetEventTypes, QAction, QLayout, QWindow } from '@nodegui/nodegui';
 
 import { Constraint } from './constraint';
 import { Suite } from './suite';
@@ -23,16 +23,18 @@ declare module NodeJS {
 }
 
 
-function clear() {
+export function clear() {
 
-  
+
+
+
+
+    layer(global.win);
 
     delete require.cache[require.resolve('./dynamic.ts')];
     delete require.cache[require.resolve('./index.js')];
     delete require.cache[require.resolve('./app.ts')];
     if (typeof global.win !== 'undefined' && global.win !== null) global.win.cache = {}
-
-    main();
 
 
 }
@@ -104,13 +106,10 @@ function swtch(hand: { no: string; s: string; c: string; }) {
         }
     }
 }
+function layer(qWin: QMainWindow) {
+    
 
-
-function main() {
-    if (typeof global.win !== 'undefined' && global.win !== null) global.win.cache = {}
-    const win = new QMainWindow();
-
-    win.setWindowTitle("Black Jack");
+    qWin.setWindowTitle("Black Jack");
 
 
     const centralWidget = new QWidget();
@@ -134,7 +133,7 @@ function main() {
     });
 
     input.addEventListener(WidgetEventTypes.KeyRelease, function handleClick(g) {
-       // global.port = this.textValue();
+        // global.port = this.textValue();
 
         clear();
     });
@@ -235,13 +234,21 @@ function main() {
     centralWidget.setLayout(layout1);
     centralWidget.setFixedWidth(1000);
     centralWidget.setFixedHeight(600);
-    win.setCentralWidget(centralWidget);
-    win.setStyleSheet("#layout {width: 700px; height: 500px; position: absolute; padding:20px}");
-    
-    win.show();
+    qWin.setCentralWidget(centralWidget);
+    qWin.setStyleSheet("#layout {width: 700px; height: 500px; position: absolute; padding:20px}");
 
+    (global as any).win = qWin;
+}
+
+function main() {
+    if (typeof global.win !== 'undefined' && global.win !== null) global.win.cache = {}
+    const win = new QMainWindow();
     (global as any).win = win;
-    
+
+    layer(global.win);
+    global.win.show();
+
+
 }
 
 main();

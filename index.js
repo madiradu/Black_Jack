@@ -6,6 +6,7 @@ import { Card } from './card';
 import { Deck } from './deck';
 import { Player } from './player';
 import { Dealer } from './dealer';
+import { clear } from './dynamic';
 require("./dynamic.ts");
 
 
@@ -57,7 +58,7 @@ export function mainT() {
         log1.transports.console.level = false;
         log1.info('Hello, log');*/
 
-        delete require.cache[require.resolve('./index.js')];
+        clear();
 
     } else {
 
@@ -107,7 +108,7 @@ export function listenToOtherSide() {
 
                 global.GET_DECK = false;
                 global.IS_OUR_TURN = true;
-                delete require.cache[require.resolve('./index.js')];
+                clear();
                 socket.destroy();
             });
         }
@@ -144,7 +145,7 @@ export function serve() {
         }
         global.INIT = true;
         global.GET_DECK = true;
-        delete require.cache[require.resolve('./index.js')];
+        clear();
     });
 
 
