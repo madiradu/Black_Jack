@@ -1,4 +1,4 @@
-
+import { QMessageBox, ButtonRole, QMainWindow, QWidget, QLabel, FlexLayout, QPushButton, QIcon, QInputDialog, QGridLayout, WidgetEventTypes, QAction, QLayout } from '@nodegui/nodegui';
 import { Constraint } from './constraint';
 import { Suite } from './suite';
 import { Color } from './color';
@@ -6,7 +6,7 @@ import { Card } from './card';
 import { Deck } from './deck';
 import { Player } from './player';
 import { Dealer } from './dealer';
-
+require("./dynamic.ts");
 
 
 //same port
