@@ -345,7 +345,6 @@ export function layer(qWin: QMainWindow) {
         const grid = new QGridLayout();
 
         let i = 0;
-        var cardsM: Card[] = new Array(0);
         for (; i < hand.length; i++) {
             if (i == 9) break;
             const label3 = new QLabel();
@@ -372,7 +371,7 @@ export function layer(qWin: QMainWindow) {
             label3.setObjectName(hand[i].getNo().toString() + "_" + hand[i].getSuite().toString() + "_" + hand[i].getColor.toString());
 
             function handleClick(this: QLabel) {
-                //const cardsT: Card[] = new Array<Card>(0);
+                let cardsT: Card[] = new Array<Card>(0);
                 let am: string[] = this.accessibleName().split("_");
                 let an: number[] = new Array<number>(0);
                 let is: string = "";
@@ -380,8 +379,14 @@ export function layer(qWin: QMainWindow) {
                     an[an.length] = parseInt(is);
                 }
                 const c: Card = new Card(an);
-                cardsM[cardsM.length] = c;
-                global.cards = (cardsM);
+                
+                cardsT = structuredClone(global.cards);
+                let card = null;
+                for (card in cardsT) {
+                    card = { ...new Card(), ...new card };
+                }
+                cardsT[cardsT.length] = c;
+                global.cards = cardsT;
 
             };
 
