@@ -1,5 +1,5 @@
 import { QMessageBox, ButtonRole, QMainWindow, QWidget, QLabel, FlexLayout, QPushButton, QIcon, QInputDialog, QGridLayout, WidgetEventTypes, QAction, QLayout, QWindow } from '@nodegui/nodegui';
-
+import { create } from 'nodegui-stylesheet';
 import { Constraint } from './constraint';
 import { Suite } from './suite';
 import { Color } from './color';
@@ -43,57 +43,230 @@ function swtch(hand: { no: string; s: string; c: string; }) {
     switch (hand.no + "_" + hand.s + "_" + hand.c) {
         case "2_1_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -94 0;";
+            return "background: url('iwG3hK.png')  -72 -0;";
         }
         case "3_1_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -188 0;";
+            return "background: url('iwG3hK.png') -144 0;";
         }
         case "4_1_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -282 0;";
+            return "background: url('iwG3hK.png') -216 0;";
         }
         case "5_1_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -376 0;";
+            return "background: url('iwG3hK.png') -288 0;";
         }
         case "6_1_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -470 0;";
+            return "background: url('iwG3hK.png') -360 0;";
         }
         case "7_1_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -564 0;";
+            return "background: url('iwG3hK.png') -432 0;";
         }
         case "8_1_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -658 0;";
+            return "background: url('iwG3hK.png') -504 0;";
         }
         case "9_1_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -752 0;";
+            return "background: url('iwG3hK.png') -576 0;";
         }
         case "10_1_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -846 0;";
+            return "background: url('iwG3hK.png') -648 0;";
         }
         case "11_1_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -940 0;";
+            return "background: url('iwG3hK.png') -720 0;";
         }
         case "12_1_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -1034 0;";
+            return "background: url('iwG3hK.png') -792 0;";
         }
         case "13_1_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -1128 0;";
+            return "background: url('iwG3hK.png') -864 0;";
         }
         case "14_1_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -1222 0;";
+            return "background: url('iwG3hK.png') -936 0;";
+        }
+        case "2_0_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -72 -94;";
+        }
+        case "3_0_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -144 -94;";
+        }
+        case "4_0_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -216 -94;";
+        }
+        case "5_0_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -288 -94;";
+        }
+        case "6_0_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -360 -94;";
+        }
+        case "7_0_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -432 -94;";
+        }
+        case "8_0_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -504 -94;";
+        }
+        case "9_0_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -576 -94;";
+        }
+        case "10_0_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -648 -94;";
+        }
+        case "11_0_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -720 -94;";
+        }
+        case "12_0_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -792 -94;";
+        }
+        case "13_0_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -864 -94;";
+        }
+        case "14_0_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -936 -94;";
+        }
+        case "2_2_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -72 -188;";
+        }
+        case "3_2_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -144 -188;";
+        }
+        case "4_2_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -216 -188;";
+        }
+        case "5_2_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -288 -188;";
+        }
+        case "6_2_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -360 -188;";
+        }
+        case "7_2_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -432 -188;";
+        }
+        case "8_2_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -504 -188;";
+        }
+        case "9_2_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -576 -188;";
+        }
+        case "10_2_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -648 -188;";
+        }
+        case "11_2_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -720 -188;";
+        }
+        case "12_2_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -792 -188;";
+        }
+        case "13_2_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -864 -188;";
+        }
+        case "14_2_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -936 -188;";
+        }
+        case "2_3_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -72 -282;";
+        }
+        case "3_3_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -144 -282;";
+        }
+        case "4_3_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -216 -282;";
+        }
+        case "5_3_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -288 -282;";
+        }
+        case "6_3_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -360 -282;";
+        }
+        case "7_3_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -432 -282;";
+        }
+        case "8_3_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -504 -282;";
+        }
+        case "9_3_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -576 -282;";
+        }
+        case "10_3_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -648 -282;";
+        }
+        case "11_3_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -720 -282;";
+        }
+        case "12_3_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -792 -282;";
+        }
+        case "13_3_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -864 -282;";
+        }
+        case "14_3_0": {//2 of hearts
+
+            return "background: url('iwG3hK.png') -936 -282;";
         }
         case "0_4_0": {//red joker
+
+            return "background: url('iwG3hK.png') 0 -144;";
+        }
+        case "0_4_1": {//black joker
+
+            return "background: url('iwG3hK.png') 0 -216;";
+        }
+        case "1_1_0": {//ace of heart
+
+            return "background: url('iwG3hK.png') 0 0;";
+        } case "1_0_1": {//ace of club
+
+            return "background: url('iwG3hK.png') 0 -72;";
+        } case "1_2_0": {//ace of diamond
+
+            return "background: url('iwG3hK.png') 0 -21;";
+        } case "1_3_1": {//ace of spades
 
             return "background: url('iwG3hK.png') 0 -144;";
         }
@@ -135,7 +308,7 @@ function layer(qWin: QMainWindow) {
     input.addEventListener(WidgetEventTypes.KeyRelease, function handleClick(g) {
         // global.port = this.textValue();
 
-        clear();
+        
     });
 
     const button = new QPushButton();
@@ -175,7 +348,7 @@ function layer(qWin: QMainWindow) {
     let hand = null;
     if (typeof player !== 'undefined' && player !== null) { hand = player.getHand(); }
     const view = new QWidget();
-
+    let styleSheet: string = "";
     if (typeof hand !== 'undefined' && hand !== null) {
         const grid = new QGridLayout();
 
@@ -187,9 +360,16 @@ function layer(qWin: QMainWindow) {
             label3.setFixedWidth(20);
             label3.setFixedHeight(26);
             const strng = swtch(hand[i]);
-            label3.setInlineStyle(`left:` + i * 94 + `px;` + strng + "width:94;");
+            const style :string= `{
+                #`+ hand.no + "_" + hand.s + "_" + hand.c+`: {
+                    left:` + i * 94 + `px;` + strng + ` width:94;
+                    
+                }`;
+            
+            label3.setInlineStyle(`left:` + i * 94 + `px; ` + strng + " width:94;");
             label3.setAccessibleName(hand.no + "_" + hand.s + "_" + hand.c);
-
+            label3.setObjectName(hand.no + "_" + hand.s + "_" + hand.c);
+ 
             function handleClick(this: QLabel) {
                 const cardsT: Card[] = new Array<Card>(0);
                 let am: string[] = label3.accessibleName().split("_"); let an: number[] = new Array<number>(0); let is: string = "";
@@ -199,12 +379,15 @@ function layer(qWin: QMainWindow) {
                 const c: Card = new Card(an);
                 cardsT[cards.length] = c;
                 global.cards = cardsT;
+
             };
 
             label3.addEventListener(WidgetEventTypes.ActivationChange, handleClick);
             grid.addWidget(label3, 0, i, 1, 1);
 
+            styleSheet += style;
         }
+
         view.setLayout(grid);
 
     }
@@ -235,7 +418,7 @@ function layer(qWin: QMainWindow) {
     centralWidget.setFixedWidth(1000);
     centralWidget.setFixedHeight(600);
     qWin.setCentralWidget(centralWidget);
-    qWin.setStyleSheet("#layout {width: 700px; height: 500px; position: absolute; padding:20px}");
+    qWin.setStyleSheet(styleSheet);
 
     (global as any).win = qWin;
 }
