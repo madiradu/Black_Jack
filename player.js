@@ -20,7 +20,9 @@ export class Player {
 
 
     getHand() {
-        return this.hand;
+        let aTemp = null;
+        aTemp = (this.hand);
+        return aTemp;
     }
     StartGame() {
         this.isFirstPlayer = true;
@@ -37,6 +39,7 @@ export class Player {
         return this.dl.CheckStack();
     };//CheckStack should be called before GiveCards to figure out which Cards should be given up
     GiveCards(cr, s) {
+
         let isWinning = false;
         if (cr.length == this.hand.length) {
             isWinning = true;
@@ -50,6 +53,8 @@ export class Player {
             let i = vct1[0];
             let k = 0; let j = null;
             for (j in this.hand) {
+                if (typeof j == 'undefined' || j == null)
+                    continue;
                 if (i.getNo() == j.getNo() && i.getSuite() == j.getSuite()) {
                     this.hand.splice(k, k + 1);
                     vct1.shift();

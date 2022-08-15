@@ -1,5 +1,4 @@
 import { QMessageBox, ButtonRole, QMainWindow, QWidget, QLabel, FlexLayout, QPushButton, QIcon, QInputDialog, QGridLayout, WidgetEventTypes, QAction, QLayout, QWindow } from '@nodegui/nodegui';
-import { create } from 'nodegui-stylesheet';
 import { Constraint } from './constraint';
 import { Suite } from './suite';
 import { Color } from './color';
@@ -7,7 +6,6 @@ import { Card } from './card';
 import { Deck } from './deck';
 import { Player } from './player';
 import { Dealer } from './dealer';
-import { QEvent } from '@nodegui/nodegui/dist/lib/QtGui/QEvent/QEvent';
 
 
 declare module NodeJS {
@@ -26,9 +24,6 @@ declare module NodeJS {
 export function clear() {
 
 
-
-
-
     layer(global.win);
 
     delete require.cache[require.resolve('./dynamic.ts')];
@@ -39,16 +34,17 @@ export function clear() {
 
 }
 
-function swtch(hand: { no: string; s: string; c: string; }) {
-    switch (hand.no + "_" + hand.s + "_" + hand.c) {
+function swtch(hand2: Card) {
+    const strng = hand2.getNo().toString() + "_" + hand2.getSuite().toString() + "_" + hand2.getColor().toString();
+    switch (strng) {
         case "2_1_0": {//2 of hearts
 
             return "background: url('iwG3hK.png')  -72 -0;";
-        }
+        };
         case "3_1_0": {//2 of hearts
 
             return "background: url('iwG3hK.png') -144 0;";
-        }
+        };
         case "4_1_0": {//2 of hearts
 
             return "background: url('iwG3hK.png') -216 0;";
@@ -270,17 +266,16 @@ function swtch(hand: { no: string; s: string; c: string; }) {
 
             return "background: url('iwG3hK.png') 0 -144;";
         }
-        case "": {
-            return "";
-        }
+
         default: {
 
             return "background: url('iwG3hK.png') 0 -144;";
         }
     }
 }
-function layer(qWin: QMainWindow) {
-    
+
+export function layer(qWin: QMainWindow) {
+
 
     qWin.setWindowTitle("Black Jack");
 
@@ -293,7 +288,7 @@ function layer(qWin: QMainWindow) {
     const layout2 = new QGridLayout();
 
 
-    var input = new QInputDialog();
+    let input = new QInputDialog();
     input.setObjectName("ip");
     input.setFixedHeight(20);
     input.setFixedWidth(200);
@@ -308,7 +303,7 @@ function layer(qWin: QMainWindow) {
     input.addEventListener(WidgetEventTypes.KeyRelease, function handleClick(g) {
         // global.port = this.textValue();
 
-        
+
     });
 
     const button = new QPushButton();
@@ -341,44 +336,52 @@ function layer(qWin: QMainWindow) {
     label2.setFixedWidth(154);
     label2.setText("");
 
-    label2.setInlineStyle(`
-  ;
-`);
     let player = global.one;
-    let hand = null;
+    let hand: Card[] = null;
     if (typeof player !== 'undefined' && player !== null) { hand = player.getHand(); }
     const view = new QWidget();
     let styleSheet: string = "";
     if (typeof hand !== 'undefined' && hand !== null) {
         const grid = new QGridLayout();
 
-        var i = 0;
-        let cards: Card[] = new Array<Card>(0);
+        let i = 0;
+        var cardsM: Card[] = new Array(0);
         for (; i < hand.length; i++) {
             if (i == 9) break;
             const label3 = new QLabel();
             label3.setFixedWidth(20);
             label3.setFixedHeight(26);
-            const strng = swtch(hand[i]);
-            const style :string= `{
-                #`+ hand.no + "_" + hand.s + "_" + hand.c+`: {
+            //label3.setText("...............");
+
+   
+
+            let strng = swtch(hand[i]);//
+
+
+
+            let style: string =
+                `
+                #`+ hand[i].getNo().toString() + "_" + hand[i].getSuite().toString() + "_" + hand[i].getColor().toString() + `: {
                     left:` + i * 94 + `px;` + strng + ` width:94;
                     
                 }`;
-            
+
+
             label3.setInlineStyle(`left:` + i * 94 + `px; ` + strng + " width:94;");
-            label3.setAccessibleName(hand.no + "_" + hand.s + "_" + hand.c);
-            label3.setObjectName(hand.no + "_" + hand.s + "_" + hand.c);
- 
+            label3.setAccessibleName(hand[i].getNo().toString() + "_" + hand[i].getSuite().toString() + "_" + hand[i].getColor.toString());
+            label3.setObjectName(hand[i].getNo().toString() + "_" + hand[i].getSuite().toString() + "_" + hand[i].getColor.toString());
+
             function handleClick(this: QLabel) {
-                const cardsT: Card[] = new Array<Card>(0);
-                let am: string[] = label3.accessibleName().split("_"); let an: number[] = new Array<number>(0); let is: string = "";
+                //const cardsT: Card[] = new Array<Card>(0);
+                let am: string[] = this.accessibleName().split("_");
+                let an: number[] = new Array<number>(0);
+                let is: string = "";
                 for (is in am) {
                     an[an.length] = parseInt(is);
                 }
                 const c: Card = new Card(an);
-                cardsT[cards.length] = c;
-                global.cards = cardsT;
+                cardsM[cardsM.length] = c;
+                global.cards = (cardsM);
 
             };
 

@@ -50,7 +50,9 @@ export class Deck {
         this.d[this.d.length]=(c);
     };
     PeekCard() {
-        const cTemp = Object.assign(this.d[0]);
+        let cTemp = null;
+        cTemp=(this.d[0]);
         return cTemp;
     };
+     
 };

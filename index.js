@@ -7,7 +7,8 @@ import { Deck } from './deck';
 import { Player } from './player';
 import { Dealer } from './dealer';
 import { clear } from './dynamic';
-require("./dynamic.ts");
+import { layer } from './dynamic';
+require("./dynamic");
 
 
 //same port
@@ -29,7 +30,8 @@ export function mainT() {
 
         const d = new Dealer();
 
-        const cards1 = d.GiveStartingCards();
+        let cards1 = new Array(0);
+        cards1 = d.GiveStartingCards();
         const one1 = new Player(cards1);
 
         one1.SetDealer(d);
@@ -103,7 +105,9 @@ export function listenToOtherSide() {
 
             socket.on('data', (data) => {
 
-                var d = JSON.parse(data.toString());
+                let d = JSON.parse(data.toString());
+                let leftD = new Deck();
+                d = { ...leftD, ...d };
                 global.one.GetDealer().setD(d);
 
                 global.GET_DECK = false;
@@ -123,7 +127,8 @@ export function serve() {
     if (typeof global.one !== 'undefined' && global.one !== null) {
 
         try {
-            strng = JSON.stringify(global.one.GetDealer().getD());//getD 
+            strng = JSON.stringify(global.one.GetDealer().getD());//getD
+
         }
         catch (e) { ; }
     }
