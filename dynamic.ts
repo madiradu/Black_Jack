@@ -383,7 +383,9 @@ export function layer(qWin: QMainWindow) {
                 cardsT = structuredClone(global.cards);
                 let card = null;
                 for (card of cardsT) {
-                    card = { ...new Card(), ... card };
+                    card = { ...new Card(), ...card };
+                    cardsT.shift();
+                    cardsT[0] = card;
                 }
                 cardsT[cardsT.length] = c;
                 global.cards = cardsT;
