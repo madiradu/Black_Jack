@@ -9,7 +9,7 @@ import { Dealer } from './dealer';
 import { clear } from './dynamic';
 import { layer } from './dynamic';
 require("./dynamic");
-
+require('sharp');
 
 //same port
 //change ip
@@ -90,7 +90,7 @@ export function listenToOtherSide() {
             //var host = ip;
             const host = '127.0.0.1';
 
-            const port = 8002;
+            const port = 8001;
 
             const socket = new net.Socket();
 
@@ -122,7 +122,7 @@ export function listenToOtherSide() {
 export function serve() {
     const http = require('http');
 
-    const port = 8001;
+    const port = 8002;
     let strng = "";
     if (typeof global.one !== 'undefined' && global.one !== null) {
 

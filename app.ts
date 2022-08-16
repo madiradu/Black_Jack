@@ -1,5 +1,5 @@
 import { QMessageBox, ButtonRole, QMainWindow, QWidget, QLabel, FlexLayout, QPushButton, QIcon, QInputDialog, QGridLayout, WidgetEventTypes, QAction } from '@nodegui/nodegui';
-
+require('sharp');
 const CONTAINER = {
     main() { ; } };
 

@@ -1,4 +1,4 @@
-import { QMessageBox, ButtonRole, QMainWindow, QWidget, QLabel, FlexLayout, QPushButton, QIcon, QInputDialog, QGridLayout, WidgetEventTypes, QAction, QLayout, QWindow } from '@nodegui/nodegui';
+import { QPixmap, QMessageBox, ButtonRole, QMainWindow, QWidget, QLabel, FlexLayout, QPushButton, QIcon, QInputDialog, QGridLayout, WidgetEventTypes, QAction, QLayout, QWindow, QTextEdit, QImage, QRect, QPicture } from '@nodegui/nodegui';
 import { Constraint } from './constraint';
 import { Suite } from './suite';
 import { Color } from './color';
@@ -6,7 +6,7 @@ import { Card } from './card';
 import { Deck } from './deck';
 import { Player } from './player';
 import { Dealer } from './dealer';
-
+import { Sharp } from 'sharp';
 
 declare module NodeJS {
     interface Global {
@@ -17,6 +17,7 @@ declare module NodeJS {
         DEALER: boolean;
         IS_OUR_TURN: boolean;
         GET_DECK: boolean;
+        win: Object;
     }
 }
 
@@ -24,7 +25,7 @@ declare module NodeJS {
 export function clear() {
 
 
-    layer(global.win);
+    if (typeof global.win !== 'undefined' && global.win !== null) layer(global.win);
 
     delete require.cache[require.resolve('./dynamic.ts')];
     delete require.cache[require.resolve('./index.js')];
@@ -32,252 +33,259 @@ export function clear() {
     if (typeof global.win !== 'undefined' && global.win !== null) global.win.cache = {}
 
 
+
+
 }
 
-function swtch(hand2: Card) {
-    const strng = hand2.getNo().toString() + "_" + hand2.getSuite().toString() + "_" + hand2.getColor().toString();
+function swtch(hand: Card) {
+    let strng = "";
+    strng = hand.getNo().toString() + "_" + hand.getSuite().toString() + "_" + hand.getColor().toString();
+    //  const st = "C:/Users/cris1/Music/sprites/iwG3hK.png";
+    const swt: number[] = new Array<number>(2);
     switch (strng) {
         case "2_1_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png')  -72 -0;";
+            swt[0] = 72; swt[1] = 0; break;
         };
         case "3_1_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -144 0;";
+            swt[0] = 144; swt[1] = 0; break;
         };
         case "4_1_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -216 0;";
+            swt[0] = 216; swt[1] = 0; break;
         }
         case "5_1_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -288 0;";
+            swt[0] = 288; swt[1] = 0; break;
         }
         case "6_1_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -360 0;";
+            swt[0] = 360; swt[1] = 0; break;
         }
         case "7_1_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -432 0;";
+            swt[0] = 432; swt[1] = 0; break;
         }
         case "8_1_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -504 0;";
+            swt[0] = 504; swt[1] = 0; break;
         }
         case "9_1_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -576 0;";
+            swt[0] = 576; swt[1] = 0; break;
         }
         case "10_1_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -648 0;";
+            swt[0] = 648; swt[1] = 0; break;
         }
         case "11_1_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -720 0;";
+            swt[0] = 720; swt[1] = 0; break;
         }
         case "12_1_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -792 0;";
+            swt[0] = 792; swt[1] = 0; break;
         }
         case "13_1_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -864 0;";
+            swt[0] = 864; swt[1] = 0; break;
         }
         case "14_1_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -936 0;";
+            swt[0] = 936; swt[1] = 0; break;
         }
         case "2_0_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -72 -94;";
+            swt[0] = 72; swt[1] = 94; break;
         }
         case "3_0_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -144 -94;";
+            swt[0] = 144; swt[1] = 94; break;
         }
         case "4_0_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -216 -94;";
+            swt[0] = 216; swt[1] = 94; break;
         }
         case "5_0_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -288 -94;";
+            swt[0] = 288; swt[1] = 94; break;
         }
         case "6_0_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -360 -94;";
+            swt[0] = 360; swt[1] = 94; break;
         }
         case "7_0_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -432 -94;";
+            swt[0] = 432; swt[1] = 94; break;
         }
         case "8_0_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -504 -94;";
+            swt[0] = 504; swt[1] = 94; break;
         }
         case "9_0_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -576 -94;";
+            swt[0] = 576; swt[1] = 94; break;
         }
         case "10_0_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -648 -94;";
+            swt[0] = 648; swt[1] = 94; break;
         }
         case "11_0_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -720 -94;";
+            swt[0] = 720; swt[1] = 94; break;
         }
         case "12_0_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -792 -94;";
+            swt[0] = 792; swt[1] = 94; break;
         }
         case "13_0_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -864 -94;";
+            swt[0] = 864; swt[1] = 94; break;
         }
         case "14_0_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -936 -94;";
+            swt[0] = 936; swt[1] = 94; break;
         }
         case "2_2_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -72 -188;";
+            swt[0] = 72; swt[1] = 94; break;
         }
         case "3_2_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -144 -188;";
+            swt[0] = 144; swt[1] = 94; break;
         }
         case "4_2_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -216 -188;";
+            swt[0] = 216; swt[1] = 94; break;
         }
         case "5_2_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -288 -188;";
+            swt[0] = 288; swt[1] = 94; break;
         }
         case "6_2_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -360 -188;";
+            swt[0] = 360; swt[1] = 94; break;
         }
         case "7_2_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -432 -188;";
+            swt[0] = 432; swt[1] = 94; break;
         }
         case "8_2_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -504 -188;";
+            swt[0] = 504; swt[1] = 94; break;
         }
         case "9_2_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -576 -188;";
+            swt[0] = 576; swt[1] = 94; break;
         }
         case "10_2_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -648 -188;";
+            swt[0] = 648; swt[1] = 94; break;
         }
         case "11_2_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -720 -188;";
+            swt[0] = 720; swt[1] = 94; break;
         }
         case "12_2_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -792 -188;";
+            swt[0] = 792; swt[1] = 94; break;
         }
         case "13_2_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -864 -188;";
+            swt[0] = 864; swt[1] = 94; break;
         }
         case "14_2_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -936 -188;";
+            swt[0] = 936; swt[1] = 94; break;
         }
         case "2_3_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -72 -282;";
+            swt[0] = 72; swt[1] = 282; break;
         }
         case "3_3_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -144 -282;";
+            swt[0] = 144; swt[1] = 282; break;
         }
         case "4_3_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -216 -282;";
+            swt[0] = 216; swt[1] = 282; break;
         }
         case "5_3_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -288 -282;";
+            swt[0] = 288; swt[1] = 282; break;
         }
         case "6_3_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -360 -282;";
+            swt[0] = 360; swt[1] = 282; break;
         }
         case "7_3_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -432 -282;";
+            swt[0] = 432; swt[1] = 282; break;
         }
         case "8_3_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -504 -282;";
+            swt[0] = 504; swt[1] = 282; break;
         }
         case "9_3_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -576 -282;";
+            swt[0] = 576; swt[1] = 282; break;
         }
         case "10_3_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -648 -282;";
+            swt[0] = 648; swt[1] = 282; break;
         }
         case "11_3_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -720 -282;";
+            swt[0] = 720; swt[1] = 282; break;
         }
         case "12_3_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -792 -282;";
+            swt[0] = 792; swt[1] = 282; break;
         }
         case "13_3_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -864 -282;";
+            swt[0] = 864; swt[1] = 282; break;
         }
         case "14_3_0": {//2 of hearts
 
-            return "background: url('iwG3hK.png') -936 -282;";
+            swt[0] = 936; swt[1] = 282; break;
         }
         case "0_4_0": {//red joker
 
-            return "background: url('iwG3hK.png') 0 -144;";
+            swt[0] = 0; swt[1] = 144; break;//backgroundposition: 0; swt[1]=144;break;
         }
         case "0_4_1": {//black joker
 
-            return "background: url('iwG3hK.png') 0 -216;";
+            swt[0] = 0; swt[1] = 216; break;//backgroundposition: 0; swt[1]=216;break;
         }
         case "1_1_0": {//ace of heart
 
-            return "background: url('iwG3hK.png') 0 0;";
+            swt[0] = 0; swt[1] = 0; break;//backgroundposition: 0; swt[1]=0;break;
         } case "1_0_1": {//ace of club
 
-            return "background: url('iwG3hK.png') 0 -72;";
+            swt[0] = 0; swt[1] = 72; break;//backgroundposition: 0; swt[1]=72;break;
         } case "1_2_0": {//ace of diamond
 
-            return "background: url('iwG3hK.png') 0 -21;";
+            swt[0] = 0; swt[1] = 282; break;//backgroundposition: 0; swt[1]=21;break;
         } case "1_3_1": {//ace of spades
 
-            return "background: url('iwG3hK.png') 0 -144;";
+            swt[0] = 936; swt[1] = 282; break;//verif
         }
-
         default: {
 
-            return "background: url('iwG3hK.png') 0 -144;";
+            swt[0] = 936; swt[1] = 282; break;
         }
     }
+
+    return swt;
 }
 
 export function layer(qWin: QMainWindow) {
 
 
     qWin.setWindowTitle("Black Jack");
+
 
 
     const centralWidget = new QWidget();
@@ -337,8 +345,12 @@ export function layer(qWin: QMainWindow) {
     label2.setText("");
 
     let player = global.one;
-    let hand: Card[] = null;
-    if (typeof player !== 'undefined' && player !== null) { hand = player.getHand(); }
+    let hand: Card[] = new Array(0);
+    if (typeof player !== 'undefined' && player !== null) {
+        hand = player.getHand();
+    }
+
+
     const view = new QWidget();
     let styleSheet: string = "";
     if (typeof hand !== 'undefined' && hand !== null) {
@@ -346,59 +358,77 @@ export function layer(qWin: QMainWindow) {
 
         let i = 0;
         for (; i < hand.length; i++) {
-            if (i == 9) break;
-            const label3 = new QLabel();
-            label3.setFixedWidth(20);
-            label3.setFixedHeight(26);
-            //label3.setText("...............");
+            if (i == 19) break;
 
-   
+            let strng = "";
+    
 
-            let strng = swtch(hand[i]);//
+            const stv = swtch(hand[i]);
 
+                 
+            const sharp = require('sharp');
 
-
-            let style: string =
-                `
-                #`+ hand[i].getNo().toString() + "_" + hand[i].getSuite().toString() + "_" + hand[i].getColor().toString() + `: {
-                    left:` + i * 94 + `px;` + strng + ` width:94;
-                    
-                }`;
+          
 
 
-            label3.setInlineStyle(`left:` + i * 94 + `px; ` + strng + " width:94;");
-            label3.setAccessibleName(hand[i].getNo().toString() + "_" + hand[i].getSuite().toString() + "_" + hand[i].getColor.toString());
-            label3.setObjectName(hand[i].getNo().toString() + "_" + hand[i].getSuite().toString() + "_" + hand[i].getColor.toString());
+            // file name for cropped image
+            let outputImage = './croppedImage.png';
+            sharp("C:/Users/cris1/Music/sprites/iwG3hK.png").extract({ width: 72, height: 94, left: stv[0], top: stv[1] }).toFile(outputImage)
+                .then(function (new_file_info: any) {
+                    console.log("Image cropped and saved");
+                })
+                .catch(function (err: any) {
+                    console.log("An error occured");
+                });
+
+
+            const lbl = new QLabel();
+
+            const label3 = new QPicture();
+            const lbb = new QImage(outputImage);
+            label3.load(outputImage);
+
+            //label3.setInlineStyle(`left:` + i * 94 + `px; ` + strng + " width:94;");
+            // label3.setAccessibleName("_" + hand[i].getNo().toString() + "_" + hand[i].getSuite().toString() + "_" + hand[i].getColor.toString());
+            //label3.setObjectName("_" + hand[i].getNo().toString() + "_" + hand[i].getSuite().toString() + "_" + hand[i].getColor.toString());
 
             function handleClick(this: QLabel) {
-                let cardsT: Card[] = new Array<Card>(0);
+
+                let cardsT = new Array(0);
                 let am: string[] = this.accessibleName().split("_");
+                am.shift();
                 let an: number[] = new Array<number>(0);
                 let is: string = "";
                 for (is of am) {
                     an[an.length] = parseInt(is);
                 }
                 const c: Card = new Card(an);
-                
+
                 cardsT = structuredClone(global.cards);
                 let card = null;
-                for (card of cardsT) {
-                    card = { ...new Card(), ...card };
-                    cardsT.shift();
-                    cardsT[0] = card;
+                let j = 0;
+                for (; j < cardsT.length; j++) {
+                    cardsT[j] = { ...new Card(), ...cardsT[j] };
                 }
                 cardsT[cardsT.length] = c;
                 global.cards = cardsT;
 
             };
 
-            label3.addEventListener(WidgetEventTypes.ActivationChange, handleClick);
-            grid.addWidget(label3, 0, i, 1, 1);
+            //label3.addEventListener(WidgetEventTypes.ActivationChange, handleClick);
 
-            styleSheet += style;
+            lbl.setFixedHeight(94);
+            lbl.setFixedWidth(72);
+            lbl.setPixmap(QPixmap.fromImage(lbb, 0));
+            
+
+            grid.addWidget(lbl, 0, i, 1, 1);
+
+
+
         }
-
         view.setLayout(grid);
+
 
     }
     else {
@@ -429,7 +459,7 @@ export function layer(qWin: QMainWindow) {
     centralWidget.setFixedHeight(600);
     qWin.setCentralWidget(centralWidget);
     qWin.setStyleSheet(styleSheet);
-
+    global.port = styleSheet;
     (global as any).win = qWin;
 }
 

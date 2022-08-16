@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "module": "commonjs",
     "outDir": "out",
     "sourceMap": true
@@ -21,22 +21,25 @@
   "description": "BJ",
   "main": "index.js",
   "author": {
-    "name": ""
+    "name": "madiradu"
   },
   "dependencies": {
     "@nodegui/nodegui": "^0.56.0",
     "@nodegui/packer": "^1.4.1",
+    "@nodegui/qode": "^16.4.3",
     "@types/node": "^16.4.13",
     "canvas": "^2.9.3",
     "clean-webpack-plugin": "^3.0.0",
     "file-loader": "^6.2.0",
     "native-addon-loader": "^2.0.1",
+    "sharp": "^0.30.7",
     "ts-loader": "^9.2.5",
     "typescript": "^4.3.5",
     "webpack": "^5.49.0",
     "webpack-cli": "^4.7.2"
   },
   "devDependencies": {
-    "electron-log": "^4"
+    "@types/sharp": "^0.30.5",
+    "electron-log": "^4.4.8"
   }
 }

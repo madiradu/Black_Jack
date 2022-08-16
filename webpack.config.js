@@ -2,6 +2,9 @@ const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
+	externals: {
+  'sharp': 'commonjs sharp'
+},
   mode: process.NODE_ENV || "development",
   entry: "./app",
   target: "node",

@@ -6,8 +6,8 @@
   "checkJs": false,
   "outDir": "./dist",
   "sourceMap": true,
-  "strict": false,
-  "alwaysStrict": false,
+  "strict": true,
+  "alwaysStrict": true,
   "moduleResolution": "node",
   "esModuleInterop": true
 }, "include": [ "**/*" ] 
