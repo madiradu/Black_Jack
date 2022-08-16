@@ -375,14 +375,14 @@ export function layer(qWin: QMainWindow) {
                 let am: string[] = this.accessibleName().split("_");
                 let an: number[] = new Array<number>(0);
                 let is: string = "";
-                for (is in am) {
+                for (is of am) {
                     an[an.length] = parseInt(is);
                 }
                 const c: Card = new Card(an);
                 
                 cardsT = structuredClone(global.cards);
                 let card = null;
-                for (card in cardsT) {
+                for (card of cardsT) {
                     card = { ...new Card(), ...new card };
                 }
                 cardsT[cardsT.length] = c;

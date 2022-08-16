@@ -66,7 +66,7 @@ export class Dealer {
         }
         if (fault) {
             let i = null;
-            for (i in cr) {
+            for (i of  cr) {
                 c[c.length] = i;
             }
             c[c.length] = (this.d.GetCard());
