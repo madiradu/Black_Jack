@@ -1,58 +1,71 @@
 /* eslint-disable */
-
+import { QMessageBox, ButtonRole, QPushButton } from '@nodegui/nodegui';
 
 import { Constraint } from './constraint';
 import { Suite } from './suite';
 import { Color } from './color';
 import { Card } from './card';
 
-
-
 export class Deck {
-    d = new Array(0);
+    d = [];
     constructor() {
+
+        //TODO
+      
         let i = 1;
+        let temp = new Array(58); temp.fill(0);
         for (; i <= 14; i++) {
-            const c1 = new Card(i, Suite.Clubs, Color.black);
-            const c2 = new Card(i, Suite.Diamonds, Color.red);
-            const c3 = new Card(i, Suite.Hearts, Color.red);
-            const c4 = new Card(i, Suite.Spades, Color.black);
-            this.d[this.d.length]=(c1);
-            this.d[this.d.length]=(c2);
-            this.d[this.d.length]=(c3);
-            this.d[this.d.length]=(c4);
-        }
+ 
+            let c1 = new Card(i, Suite.Clubs, Color.black);
+          
+            let c2 = new Card(i, Suite.Diamonds, Color.red);
+            let c3 = new Card(i, Suite.Hearts, Color.red);
+            let c4 = new Card(i, Suite.Spades, Color.black);
+ 
+            temp[i-1]=c1;
+            temp[i*2-1] =c2;
 
-        const c5 = new Card(0, Suite.None, Color.black);
-        const c6 = new Card(0, Suite.None, Color.red);
-        this.d[this.d.length]=(c5);
-        this.d[this.d.length]=(c6);
-    }
-    Shuffle() {
-        let i = 0;
-        for (i = this.d.length - 1; i > 0; i--) {
-            const min = 1;
-            const max = 1000;
-            let rand = Math.floor(Math.random() * (max - min + 1) + min)
-            let iRandom = rand % i;
-            const temp = this.d[i];
-            this.d[i] = this.d[iRandom];
-            this.d[iRandom] = temp;
+            temp[i*3-1] =c3;
+
+            temp[i*4-1] =c4;
 
         }
+
+        temp[56]=new Card(0, Suite.None, Color.black);
+        temp[57] = new Card(0, Suite.None, Color.red);
+
+        
+
+        this.d = temp.slice();
+
     };
-    GetCard() {
-        const cTemp = this.d[0];
-        this.d.shift();
-        return cTemp;
+    Shuffle() {
+        let i = this.d.length - 1;
+        for (; i >= 0; i--) {
+
+            let iRandom = Math.floor(Math.random() * (this.d.length - 1));
+            
+
+            const anon = function (key, value) {
+                return value;
+            };
+
+            let temp = (JSON.stringify(this.d[i]));
+            let temp2 = (JSON.stringify(this.d[iRandom]));
+            this.d[iRandom] = { ...new Card(0, 0, 0), ...(JSON.parse(temp, anon)) };
+            this.d[i] = { ...new Card(0, 0, 0), ...(JSON.parse(temp2, anon)) };
+
+        };
+
+    };
+    GetCard() {        
+        return this.d.shift();
     };
     PushCard(c) {
-        this.d[this.d.length]=(c);
+        this.d.push(c);
     };
     PeekCard() {
-        let cTemp = null;
-        cTemp=(this.d[0]);
-        return cTemp;
+        return (this.d[0]);
     };
-     
+
 };

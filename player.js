@@ -1,29 +1,29 @@
 import { Constraint } from './constraint';
 import { Suite } from './suite';
 import { Color } from './color';
-import { Card } from './card';
 import { Deck } from './deck';
 import { Dealer } from './dealer';
 
+import { Card } from './card';
+
 export class Player {
-    dl;
+
+    Dealer = null;
     isFirstPlayer;
 
     hand = new Array(0);
+
     constructor(h) {
         this.isFirstPlayer = false;
         let c = null;
         for (c of  h) {
-            this.hand[this.hand.length] = c;
+            this.hand.push(c);
         }
-    }
-
+    };
 
     getHand() {
-        let aTemp = null;
-        aTemp = (this.hand);
-        return aTemp;
-    }
+        return this.hand;
+    };
     StartGame() {
         this.isFirstPlayer = true;
 
@@ -47,7 +47,7 @@ export class Player {
         let vct1 = new Array(0);
         let i = null;
         for (i of cr) {
-            vct1[vct1.length] = i;
+            vct1.push(i);
         }
         while (vct1.length) {
             let i = vct1[0];
@@ -56,7 +56,7 @@ export class Player {
              
                 if (typeof j == 'undefined' || j == null)
                     continue;
-                if (i.getNo() == j.getNo() && i.getSuite() == j.getSuite()) {
+                if (i.fno() == j.fno() && i.fs() == j.fs()) {
                     this.hand.splice(k, k + 1);
                     vct1.shift();
                     break;
@@ -69,7 +69,7 @@ export class Player {
             let r = null; r = this.dl.GiveCardsPlayer1(cr, s, isWinning);
             let c = null;
             for (c of r) {
-                this.hand[this.hand.length] = c;
+                this.hand.push(c);
             }
         }
         else {
@@ -77,7 +77,7 @@ export class Player {
             let r = null; r = this.dl.GiveCardsPlayer2(cr, s, isWinning);
             let c = null;
             for (c of r) {
-                this.hand[this.hand.length] = c;
+                this.hand.push(c);
             }
         }
     };//CheckStack should be called before GiveCards to figure out which Cards should be given up

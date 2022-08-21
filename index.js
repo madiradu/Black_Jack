@@ -2,37 +2,36 @@ import { QMessageBox, ButtonRole, QMainWindow, QWidget, QLabel, FlexLayout, QPus
 import { Constraint } from './constraint';
 import { Suite } from './suite';
 import { Color } from './color';
-import { Card } from './card';
 import { Deck } from './deck';
 import { Player } from './player';
 import { Dealer } from './dealer';
 import { clear } from './dynamic';
 import { layer } from './dynamic';
+
 require("./dynamic");
 require('sharp');
+import { Card } from './card';
 
 //same port
 //change ip
 
 
-
-
 export function mainT() {
-
 
 
     if ((typeof global.INIT == 'undefined' || global.INIT == null) || ((global.INIT == false))) {
 
 
 
-
-
-
         const d = new Dealer();
 
+ 
         let cards1 = new Array(0);
         cards1 = d.GiveStartingCards();
+
+
         const one1 = new Player(cards1);
+
 
         one1.SetDealer(d);
 
@@ -40,7 +39,6 @@ export function mainT() {
         //log1.info('Hello, log' + one1.GetDealer().getD().PeekCard().getNo());
 
         global.DEALER = false;
-
 
 
         global.INIT = false;
@@ -51,8 +49,7 @@ export function mainT() {
 
         global.one = one1;
 
-
-
+   
 
         setImmediate(serve);
 
@@ -67,10 +64,6 @@ export function mainT() {
         setImmediate(listenToOtherSide);
 
     }
-
-
-
-
 
 
 
@@ -105,9 +98,12 @@ export function listenToOtherSide() {
 
             socket.on('data', (data) => {
 
+      
+
                 let d = JSON.parse(data.toString());
                 let leftD = new Deck();
                 d = { ...leftD, ...d };
+                //TODO
                 global.one.GetDealer().setD(d);
 
                 global.GET_DECK = false;
@@ -134,7 +130,7 @@ export function serve() {
     }
 
     const server = http.createServer((req, res) => {
-        res.writeHead(200, { 'Content-Type': 'text/plain' });
+        res.writeHead(200, { 'Content-Type': 'application/json' });
         res.write(strng + " ");
         res.end();
 
@@ -153,12 +149,9 @@ export function serve() {
         clear();
     });
 
-
     server.listen(port);
 
 }
-
-
 
 
 //npm run build
