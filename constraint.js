@@ -3,7 +3,7 @@
 import { Card } from './card';
 
 export class Constraint {
-    waitATurns;
+    waitATurn;
     pickUpTwo;
     card;
     getWaitATurn() {
