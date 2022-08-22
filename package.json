@@ -17,14 +17,14 @@
     "node_modules"
   ],
   "name": "bj",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "BJ",
   "main": "index.js",
   "author": {
     "name": "madiradu"
   },
   "dependencies": {
-    "@nodegui/nodegui": "^0.56.0",
+    "@nodegui/nodegui": "^0.57.0",
     "@nodegui/packer": "^1.4.1",
     "@nodegui/qode": "^16.4.3",
     "@types/node": "^18.7.0",

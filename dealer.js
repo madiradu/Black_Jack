@@ -108,6 +108,7 @@ export class Dealer {
 
     constructor() {
         this.d.Shuffle();
+
     };
     setD(dt) {
         this.d = dt;

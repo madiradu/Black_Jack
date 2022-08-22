@@ -98,12 +98,12 @@ export function listenToOtherSide() {
 
             socket.on('data', (data) => {
 
-      
+                const anon = function (key, value) {
+                    return value;
+                };
 
-                let d = JSON.parse(data.toString());
-                let leftD = new Deck();
-                d = { ...leftD, ...d };
-                //TODO
+                let d = { ...new Deck(), ...JSON.parse(data.toString(), anon) };
+
                 global.one.GetDealer().setD(d);
 
                 global.GET_DECK = false;

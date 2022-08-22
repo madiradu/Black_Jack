@@ -1,4 +1,4 @@
-import { QPixmap, QMessageBox, ButtonRole, QMainWindow, QWidget, QLabel, FlexLayout, QPushButton, QIcon, QInputDialog, QGridLayout, WidgetEventTypes, QAction, QLayout, QWindow, QTextEdit, QImage, QRect, QPicture } from '@nodegui/nodegui';
+import { QDragLeaveEvent, QDragMoveEvent, QDropEvent,QPixmap, QMenu, QMessageBox, ButtonRole, QMainWindow, QWidget, QLabel, FlexLayout, QPushButton, QIcon, QInputDialog, QGridLayout, WidgetEventTypes, QAction, QLayout, QWindow, QTextEdit, QImage, QRect, QPicture, QMoveEvent, QDrag } from '@nodegui/nodegui';
 import { Constraint } from './constraint';
 import { Suite } from './suite';
 import { Color } from './color';
@@ -298,7 +298,7 @@ export function layer(qWin) {
 
     input.addEventListener(WidgetEventTypes.Close, function handleClick(e) {
         //this.stopImmediatePropagation();
-       // clear();
+        // clear();
 
     });
 
@@ -329,13 +329,35 @@ export function layer(qWin) {
         
 
     });*/
-    const label2 = new QLabel();
+    const label2 = new QPushButton();
     label2.setFixedHeight(200);
     label2.setFixedWidth(154);
-    label2.setText("");
+    label2.setText("......................................................................................................................");
+    label2.setAcceptDrops(true);
 
+    label2.addEventListener(WidgetEventTypes.Enter, (e) => {
+        let ev = new QDragMoveEvent(e);
+       
+
+        ev.accept(); //Accept the drop event, which is crucial for accepting further events
+    });
+
+   /* label2.addEventListener(WidgetEventTypes.DragMove, (e) => {
+        let ev = new QDragMoveEvent(e);
+    });
+    label2.addEventListener(WidgetEventTypes.DragLeave, (e) => {
+        let ev = new QDragLeaveEvent(e);
+        ev.ignore(); //Ignore the event when it leaves
+    });*/
+
+    label2.addEventListener(WidgetEventTypes.Drop, (e) => {
+
+        let dropEvent = new QDropEvent(e);
+        
+
+    });
     let player = global.one;
-    
+
     let hand = new Array(0);
     if (typeof player !== 'undefined' && player !== null) {
         hand = player.getHand();
@@ -345,13 +367,13 @@ export function layer(qWin) {
     let styleSheet = "";
     if (typeof hand !== 'undefined' && hand !== null) {
         const grid = new QGridLayout();
-  
+
         let i = 0;
         for (; i < hand.length; i++) {
             if (i == 19) break;
 
             let strng = "";
-   
+
 
             const stv = swtch(hand[i]);
 
@@ -368,15 +390,14 @@ export function layer(qWin) {
                     console.log("An error occured");
                 });
 
-            const lbl = new QLabel();
+            const lbl = new QPushButton();
 
-            const label3 = new QPicture();
+            //const label3 = new QPicture();
             const lbb = new QImage(outputImage);
-            label3.load(outputImage);
+           // label3.load(outputImage);
 
-            //label3.setInlineStyle(`left:` + i * 94 + `px; ` + strng + " width:94;");
-            // label3.setAccessibleName("_" + hand[i].fno().toString() + "_" + hand[i].s().toString() + "_" + hand[i].c.toString());
-            //label3.setObjectName("_" + hand[i].getNo().toString() + "_" + hand[i].getSuite().toString() + "_" + hand[i].getColor.toString());
+           // lbl.setAccessibleName("_" + hand[i].fno().toString() + "_" + hand[i].fs().toString() + "_" + hand[i].fc().toString());
+            //lbl.setObjectName("_" + hand[i].fno().toString() + "_" + hand[i].fs().toString() + "_" + hand[i].fc().toString());
 
             function handleClick(e) {
 
@@ -391,23 +412,34 @@ export function layer(qWin) {
 
                 const c = new Card(an[0], an[1], an[2]);
 
-                cardsT = structuredClone(global.cards);
-                let card = null;
-                let j = 0;
-                for (; j < cardsT.length; j++) {
-                    cardsT[j] = { ...new Card(0, 0, 0), ...cardsT[j] };
-                }
+                cardsT = global.cards.slice();
+
                 cardsT.push(c);
-                global.cards = cardsT;
+                global.cards = cardsT.slice();
+
 
             };
 
-            //label3.addEventListener(WidgetEventTypes.ActivationChange, handleClick);
+           
+            const pxmap = QPixmap.fromImage(lbb, 0);
 
+            
+
+            lbl.addEventListener(WidgetEventTypes.MouseButtonPress, () => {
+                
+                const qdrag = new QDrag(this);
+                qdrag.setPixmap(pxmap);
+                qdrag.setAcceptDrops(true);
+                const drop = qdrag.exec();
+ 
+            });
+     
+            
             lbl.setFixedHeight(26);
             lbl.setFixedWidth(20);
-            lbl.setPixmap(QPixmap.fromImage(lbb, 0));
 
+            lbl.setStyleSheet("background-image: url('" + outputImage +"');");
+            
             grid.addWidget(lbl, 0, i, 1, 1);
 
 
