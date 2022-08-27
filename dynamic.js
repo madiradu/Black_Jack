@@ -425,13 +425,29 @@ export function layer(qWin) {
 
             
 
-            lbl.addEventListener(WidgetEventTypes.MouseButtonPress, () => {
-                
-                const qdrag = new QDrag(this);
+             lbl.addEventListener(WidgetEventTypes.MouseButtonPress, () => {
+
+                let ev = new QDragMoveEvent(e);
+                const qdrag = new QDragEvent(e);
+
                 qdrag.setPixmap(pxmap);
-                qdrag.setAcceptDrops(true);
+                qdrag.setPixmap(pxmap);
+                qdrag.setHotSpot(new QPoint(2, 2));
+                const mim = new QMimeData();
+                mim.setText("test");
+                qdrag.setMimeData(mim);
                 const drop = qdrag.exec();
- 
+
+            });
+            lbl.addEventListener(WidgetEventTypes.MouseButtonRelease, (e) => {
+                let ev = new QDropEvent(e);
+                if (lbl.underMouse()) {
+                    lbl.hide();
+
+                    //const mim = ev.mimeData();
+                    ev.accept();
+
+                }
             });
      
             
