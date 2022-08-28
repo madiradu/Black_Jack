@@ -1,7 +1,8 @@
 declare global {
     var Config: {
         port: string;
-		one: Any; 
+		one: Any;
+		dealer1: Any;		
 		cards:Any[];
 		INIT: boolean;
 		DEALER: boolean;
@@ -12,6 +13,7 @@ declare global {
     };
     var port: string;
 	var one: Any;
+	var dealer1: Any;
 	var cards: Any[];
 	var INIT: boolean=false;
 	var DEALER: boolean=false;

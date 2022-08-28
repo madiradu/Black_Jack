@@ -19,21 +19,18 @@ import { Card } from './card';
 export function mainT() {
 
 
-    if ((typeof global.INIT == 'undefined' || global.INIT == null) || ((global.INIT == false))) {
+    if (!!global.INIT) {
 
 
 
-        const d = new Dealer();
-
- 
-        let cards1 = new Array(0);
-        cards1 = d.GiveStartingCards();
+        var d = new Dealer();
 
 
-        const one1 = new Player(cards1);
+        global.dealer1 = d;
+
+        // clear();
 
 
-        one1.SetDealer(d);
 
 
         //log1.info('Hello, log' + one1.GetDealer().getD().PeekCard().getNo());
@@ -47,9 +44,6 @@ export function mainT() {
 
         global.GET_DECK = false;
 
-        global.one = one1;
-
-   
 
         setImmediate(serve);
 
@@ -57,11 +51,10 @@ export function mainT() {
         log1.transports.console.level = false;
         log1.info('Hello, log');*/
 
-        clear();
-
-    } else {
-
         setImmediate(listenToOtherSide);
+
+
+        clear();
 
     }
 
@@ -71,46 +64,67 @@ export function mainT() {
 
 }
 export function listenToOtherSide() {
-    const net = require('net');
+    const net = require('node:net');
     while (true) {
-        if (!!global.INIT) {
-            global.DEALER = false;
-            global.GET_DECK = true;
-        }
+        try {
+            if (!!global.INIT) {
+                //global.DEALER = false;
+                global.GET_DECK = true;
+            }
 
-        if (typeof global.GET_DECK !== 'undefined' && global.GET_DECK !== null) {
+            if (!!global.GET_DECK) {
 
-            //var host = ip;
-            const host = '127.0.0.1';
+                //var host = ip;
+                const host = '127.0.0.1';
 
-            const port = 8001;
+                const port = 8001;
 
-            const socket = new net.Socket();
+                const socket = new net.Socket();
+                socket.connect(port, host, () => {
+                    socket.write('GET / HTTP/1.0\r\n\r\n');
+                    socket.write("Host: " + host + "\r\n");
+                    socket.write("User-Agent: Node.js HTTP client\r\n");
+                    socket.write("Accept: application/json\r\n");
+                    socket.write("Accept-Language: en-US\r\n");
+                    socket.write("Connection: close\r\n\r\n");
+                });
 
-            socket.connect(port, host, () => {
-                socket.write('GET / HTTP/1.0\r\n\r\n');
-                socket.write("Host: " + host + "\r\n");
-                socket.write("User-Agent: Node.js HTTP client\r\n");
-                socket.write("Accept: application/json\r\n");
-                socket.write("Accept-Language: en-US\r\n");
-                socket.write("Connection: close\r\n\r\n");
-            });
+                socket.on('data', (data) => {
 
-            socket.on('data', (data) => {
 
-                const anon = function (key, value) {
-                    return value;
-                };
 
-                let d = { ...new Deck(), ...JSON.parse(data.toString(), anon) };
 
-                global.one.GetDealer().setD(d);
+                    let deck = { ...new Deck(), ...JSON.parse(data) };
+                    let j = 0;
+                    for (; j < deck.getD().length; j++) {
+                        deck.getD()[j] = { ...new Card(0, 4, 0), ...(JSON.parse(deck.getD()[i], anon)) };
+                    }
 
-                global.GET_DECK = false;
-                global.IS_OUR_TURN = true;
-                clear();
-                socket.destroy();
-            });
+
+                    global.dealer1.setD(deck);
+
+                    if (!!global.INIT) {
+                        let cards1 = new Array(0);
+
+                        cards1 = (global.dealer1.GiveStartingCards());
+
+
+                        const one1 = new Player(cards1);
+                        global.one = (one1);
+                        global.one.SetDealer(global.dealer1);
+
+                    }
+
+
+                    global.GET_DECK = false;
+                    global.IS_OUR_TURN = true;
+                    clear();
+                    socket.destroy();
+                });
+            }
+
+        } catch (e) {
+
         }
     }
 }
@@ -120,6 +134,23 @@ export function serve() {
 
     const port = 8002;
     let strng = "";
+    if (!!global.INIT) {
+        let cards1 = new Array(0);
+
+
+        cards1 = (global.dealer1.GiveStartingCards());
+
+
+
+        const one1 = new Player(cards1);
+        global.one = (one1);
+
+
+        global.one.SetDealer(global.dealer1);
+
+
+
+    }
     if (typeof global.one !== 'undefined' && global.one !== null) {
 
         try {
@@ -127,30 +158,30 @@ export function serve() {
 
         }
         catch (e) { ; }
-    }
 
-    const server = http.createServer((req, res) => {
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.write(strng + " ");
-        res.end();
 
-        //server.close();
-    });
+        const server = http.createServer((req, res) => {
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.write(strng + " ");
+            res.end();
 
-    server.on('connect', (req, clientSocket, head) => {
-        if (!!global.INIT) {
-            global.DEALER = true;
-            if (typeof global.one !== 'undefined' && global.one !== null) {
-                global.one.StartGame();
+            //server.close();
+        });
+
+        server.on('connect', (req, clientSocket, head) => {
+            if (!!global.INIT) {
+                global.DEALER = true;
+                if (typeof global.one !== 'undefined' && global.one !== null) {
+                    global.one.StartGame();
+                }
             }
-        }
-        global.INIT = true;
-        global.GET_DECK = true;
-        clear();
-    });
+            global.INIT = true;
+            global.GET_DECK = true;
+            clear();
+        });
 
-    server.listen(port);
-
+        server.listen(port);
+    }
 }
 
 

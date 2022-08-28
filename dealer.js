@@ -10,7 +10,6 @@ import { Card } from './card';
 
 export class Dealer {
     d = new Deck();
-    vect = new Array(0);
     waitATurn = false;
     player1Turn = true;
     Player1LastCards = false;

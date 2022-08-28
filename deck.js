@@ -36,7 +36,7 @@ export function Deck() {
     this.d = temp.slice();
 
 
-    this.Shuffle = function() {
+    this.Shuffle = function () {
         let i = this.d.length - 1;
         for (; i >= 0; i--) {
 
@@ -57,13 +57,13 @@ export function Deck() {
         };
 
     };
-    this.GetCard = function() {
+    this.GetCard = function () {
         return this.d.shift();
     };
-    this.PushCard =  function(c) {
+    this.PushCard = function (c) {
         this.d.push(c);
     };
-    this.PeekCard = function() {
+    this.PeekCard = function () {
         return this.d[0];
     };
 
