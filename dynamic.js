@@ -417,7 +417,7 @@ export function layer(qWin) {
 
             lbl.addEventListener(WidgetEventTypes.MouseButtonPress, () => {
 
-                let ev = new QDragMoveEvent(e);
+                /*let ev = new QDragMoveEvent(e);
                 const qdrag = new QDragEvent(e);
 
                 qdrag.setPixmap(pxmap);
@@ -426,7 +426,7 @@ export function layer(qWin) {
                 const mim = new QMimeData();
                 mim.setText("test");
                 qdrag.setMimeData(mim);
-                const drop = qdrag.exec();
+                const drop = qdrag.exec();*/
 
             });
             lbl.addEventListener(WidgetEventTypes.MouseButtonRelease, (e) => {

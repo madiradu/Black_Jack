@@ -19,11 +19,11 @@ import { Card } from './card';
 export function mainT() {
 
 
-    if (!!global.INIT) {
+    if (typeof global.INIT == 'undefined' || global.INIT == null || global.INIT == false) {
 
 
 
-        var d = new Dealer();
+        const d = new Dealer();
 
 
         global.dealer1 = d;
@@ -67,15 +67,18 @@ export function listenToOtherSide() {
     const net = require('node:net');
     while (true) {
         try {
-            if (!!global.INIT) {
-                //global.DEALER = false;
+            if (typeof global.INIT == 'undefined' || global.INIT == null || global.INIT == false) {
+                global.DEALER = false;
                 global.GET_DECK = true;
             }
 
-            if (!!global.GET_DECK) {
+            if (typeof global.GET_DECK !== 'undefined' && global.GET_DECK !== null && global.GET_DECK == true ) {
+
+
+      
 
                 //var host = ip;
-                const host = '127.0.0.1';
+                const host = '192.168.0.1';
 
                 const port = 8001;
 
@@ -88,22 +91,21 @@ export function listenToOtherSide() {
                     socket.write("Accept-Language: en-US\r\n");
                     socket.write("Connection: close\r\n\r\n");
                 });
-
+                const anon = function (key, value) {
+                    return value;
+                };
                 socket.on('data', (data) => {
 
-
-
-
-                    let deck = { ...new Deck(), ...JSON.parse(data) };
+                    let deck = { ...new Deck(), ...JSON.parse(data.toString()) };
                     let j = 0;
                     for (; j < deck.getD().length; j++) {
-                        deck.getD()[j] = { ...new Card(0, 4, 0), ...(JSON.parse(deck.getD()[i], anon)) };
+                        deck.getD()[j] = { ...new Card(0, 4, 0), ...(JSON.parse(deck.getD()[j], anon)) };
                     }
 
 
                     global.dealer1.setD(deck);
 
-                    if (!!global.INIT) {
+                    if (typeof global.INIT == 'undefined' || global.INIT == null || global.INIT == false) {
                         let cards1 = new Array(0);
 
                         cards1 = (global.dealer1.GiveStartingCards());
@@ -132,9 +134,8 @@ export function listenToOtherSide() {
 export function serve() {
     const http = require('http');
 
-    const port = 8002;
-    let strng = "";
-    if (!!global.INIT) {
+    const port = 8001;
+    if (typeof global.INIT == 'undefined' || global.INIT == null || global.INIT == false) {
         let cards1 = new Array(0);
 
 
@@ -153,23 +154,31 @@ export function serve() {
     }
     if (typeof global.one !== 'undefined' && global.one !== null) {
 
-        try {
-            strng = JSON.stringify(global.one.GetDealer().getD());//getD
-
-        }
-        catch (e) { ; }
 
 
         const server = http.createServer((req, res) => {
             res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.write(strng + " ");
             res.end();
 
             //server.close();
         });
 
-        server.on('connect', (req, clientSocket, head) => {
-            if (!!global.INIT) {
+       
+        server.on('request', function (req, res) {
+
+            let strng = "";
+
+            try {
+                strng = JSON.stringify(global.one.GetDealer().getD());//getD
+
+            }
+            catch (e) { ; }       
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.write(strng + " ");
+            res.end();
+
+          
+            if (typeof global.INIT == 'undefined' || global.INIT == null || global.INIT == false) {
                 global.DEALER = true;
                 if (typeof global.one !== 'undefined' && global.one !== null) {
                     global.one.StartGame();
@@ -178,6 +187,7 @@ export function serve() {
             global.INIT = true;
             global.GET_DECK = true;
             clear();
+            
         });
 
         server.listen(port);
